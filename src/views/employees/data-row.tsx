@@ -3,7 +3,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import EditIcon from '@mui/icons-material/Edit';
 import { TEmployee } from "types/employee";
 interface IProps {
-  row: any
+  row: TEmployee
   onViewDetails: (room: TEmployee) => void;
   onUpdateDetails: (room: TEmployee) => void;
 }
@@ -12,12 +12,10 @@ const DataRow = ({ row, onViewDetails, onUpdateDetails }: IProps) => {
 
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}    >
-      <TableCell scope="row">{row.id}</TableCell>
-      <TableCell scope="row">{row.name}</TableCell>
-      <TableCell scope="row">{row.email}</TableCell>
-      <TableCell scope="row">{row.phone}</TableCell>
+      <TableCell>{row.name}</TableCell>
       <TableCell>{row.email}</TableCell>
-
+      <TableCell>{row.department}</TableCell>
+      <TableCell>{row.role}</TableCell>
 
       <TableCell align="right">
         <Stack

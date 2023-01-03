@@ -12,7 +12,7 @@ import { topBarTitle } from "./metadata";
 import { openCreateHotelDrawer } from "features/inventory-slice";
 import { openCreateDrawer as openCreateJobDrawer } from "features/jobs-slice";
 import { openCreateHotelReservation } from "features/orders-slice";
-import { openCreateEmployee } from "features/employees-slice";
+import { openCreateDrawer as openCreateEmployeeDrawer } from "features/employees-slice";
 import { openCreateRoomDrawer } from "features/departments-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 
@@ -69,7 +69,7 @@ const TopBar = () => {
         dispatch(openCreateHotelDrawer());
         break;
       case AppScreen.EMPLOYEES:
-        dispatch(openCreateEmployee());
+        dispatch(openCreateEmployeeDrawer());
         break;
       case AppScreen.ORDERS:
         dispatch(openCreateHotelReservation());

@@ -1,9 +1,9 @@
+import * as yup from 'yup';
 import { Box, Drawer, TextField, Button, MenuItem } from "@mui/material";
 import DrawerHeader from "components/drawer-header";
-import { closeCreateEmployee, selectIsCreateRecordDrawerOpen, setReload } from "features/employees-slice";
+import { closeCreateDrawer, selectIsCreateDrawerOpen, setReload } from "features/employees-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import { TEmployeeCreate } from "types/employee";
 import { employeeTypeOptions } from "./metadata";
 import { UserType } from "enums/userType";
@@ -14,10 +14,10 @@ import { validatePhoneNumber } from "helpers/validations";
 const EmployeeCreate = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsCreateRecordDrawerOpen);
+  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
   const [triggerCreateEmployee, { isLoading }] = useCreateEmployeeMutation();
 
-  const handleClose = () => dispatch(closeCreateEmployee());
+  const handleClose = () => dispatch(closeCreateDrawer);
 
   const validationSchema = yup.object({
     userType: yup
