@@ -12,7 +12,7 @@ interface IState {
 }
 
 const initialState: IState = {
-  currScreen: AppScreen.RESERVATIONS,
+  currScreen: AppScreen.DEPARTMENTS,
   snackbar: { message: undefined, open: false, alertSeverity: undefined },
   user: undefined
 };

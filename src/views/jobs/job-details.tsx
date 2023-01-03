@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import DrawerHeader from "components/drawer-header";
 import RoomCard from 'components/room-card';
 import PaidTwoToneIcon from '@mui/icons-material/PaidTwoTone';
-import { selectIsOpenAgencyDetails, toggleAgencyDetails } from "features/jobs-slice";
+import { selectIsDetailsDrawerOpen, toggleDetailsDrawer } from "features/jobs-slice";
 
 const JobDetails = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsOpenAgencyDetails);
+  const isOpen = useAppSelector(selectIsDetailsDrawerOpen);
 
-  const handleClose = () => dispatch(toggleAgencyDetails());
+  const handleClose = () => dispatch(toggleDetailsDrawer());
 
   return (
     <Drawer

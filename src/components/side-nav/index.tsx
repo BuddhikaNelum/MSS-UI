@@ -8,11 +8,12 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import LockIcon from '@mui/icons-material/Lock';
+import PersonIcon from '@mui/icons-material/Person';
 import { removeValue } from "utils/storage-util";
 import { UserType } from "enums/userType";
 import { useAppSelector } from "hooks/hooks";
 import { selectCurrUser } from "features/app-slice";
+import Logo from "assets/images/logo.jpeg";
 
 const categories = [
   {
@@ -20,8 +21,8 @@ const categories = [
     roles: [UserType.MANAGER, UserType.CLERK],
     children: [
       {
-        id: "Reservations",
-        icon: <EventAvailableIcon />,
+        id: "Employees",
+        icon: <PersonIcon />,
         active: true,
         path: RouteRegistry.app.paths.employees.path,
         roles: [UserType.MANAGER, UserType.CLERK],
@@ -102,9 +103,9 @@ const SideNav = () => {
             paddingY: 2,
           }}
         >
-          {/* <img width={100} height={100} src={Logo} alt="Logo" /> */}
-          
-          <Typography
+          <img width="auto" height={100} src={Logo} alt="Logo" />
+
+          {/* <Typography
             color="white"
             letterSpacing={1}
             fontWeight="bold"
@@ -113,7 +114,7 @@ const SideNav = () => {
             <LockIcon />
             {' '}
             LOCK HOOD
-          </Typography>
+          </Typography> */}
         </Box>
         <List disablePadding>
           {categories.map((menu) => (

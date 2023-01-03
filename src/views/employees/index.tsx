@@ -9,7 +9,7 @@ const Employees = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.MANAGE_CLERK));
+    dispatch(setCurrScreen(AppScreen.EMPLOYEES));
   }, []);
 
   return (

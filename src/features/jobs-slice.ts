@@ -15,25 +15,25 @@ export const jobsSlice = createSlice({
   name: 'jobs',
   initialState,
   reducers: {
-    openCreateAgency: (state: IState) => {
+    openCreateDrawer: (state: IState) => {
       state.isOpenAgencyCreate = true;
     },
-    closeCreateAgency: (state: IState) => {
+    closeCreateDrawer: (state: IState) => {
       state.isOpenAgencyCreate = false;
     },
-    toggleAgencyDetails: (state: IState) => {
+    toggleDetailsDrawer: (state: IState) => {
       state.isOpenAgencyDetails = !state.isOpenAgencyDetails;
     }
   },
 });
 
 export const {
-  openCreateAgency,
-  closeCreateAgency,
-  toggleAgencyDetails,
+  openCreateDrawer,
+  closeCreateDrawer,
+  toggleDetailsDrawer,
 } = jobsSlice.actions;
 
-export const selectIsOpenAgencyCreate = (state: RootState) => state.jobs.isOpenAgencyCreate;
-export const selectIsOpenAgencyDetails = (state: RootState) => state.jobs.isOpenAgencyDetails;
+export const selectIsCreateDrawerOpen = (state: RootState) => state.jobs.isOpenAgencyCreate;
+export const selectIsDetailsDrawerOpen = (state: RootState) => state.jobs.isOpenAgencyDetails;
 
 export default jobsSlice.reducer;

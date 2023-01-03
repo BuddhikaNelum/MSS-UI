@@ -10,7 +10,7 @@ const ManageOrders = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.HOTEL_ROOMS));
+    dispatch(setCurrScreen(AppScreen.EMPLOYEES));
   }, []);
 
   return (

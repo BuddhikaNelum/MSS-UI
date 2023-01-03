@@ -22,7 +22,7 @@ const DataRow = ({ row, onViewDetails }: IProps) => {
       <TableCell scope="row">{row.department}</TableCell>
       <TableCell scope="row">{row.createdBy}</TableCell>
       <TableCell>
-        <Chip label={row.status} color="success" variant="outlined" />
+        <Chip label={row.status} color={row.status.toLocaleUpperCase() === "REJECTED" ? "error" : "success"} variant="outlined" />
       </TableCell>
       <TableCell scope="row">{row.createdAt}</TableCell>
       <TableCell scope="row">{row.completedAt}</TableCell>

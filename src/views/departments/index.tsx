@@ -10,7 +10,7 @@ const ManageDepartments = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.MANAGE_HOTELS));
+    dispatch(setCurrScreen(AppScreen.DEPARTMENTS));
   }, []);
 
   return (

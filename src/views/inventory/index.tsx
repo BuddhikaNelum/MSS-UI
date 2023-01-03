@@ -10,7 +10,7 @@ const ManageInventory = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.RESERVATIONS));
+    dispatch(setCurrScreen(AppScreen.INVENTORY));
   }, []);
 
   return (

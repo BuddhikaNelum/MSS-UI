@@ -19,7 +19,7 @@ const DashboardRoutes = {
       element: <Navigate to={RouteRegistry.app.paths.departments.path} />,
     },
     {
-      path: RouteRegistry.app.paths.departments.path,
+      path: RouteRegistry.app.paths.inventory.path,
       element: <Inventory />
     },
     {
@@ -27,7 +27,7 @@ const DashboardRoutes = {
       element: <Departments />
     },
     {
-      path: RouteRegistry.app.paths.inventory.path,
+      path: RouteRegistry.app.paths.orders.path,
       element: <Orders />
     },
     {

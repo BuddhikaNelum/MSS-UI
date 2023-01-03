@@ -1,6 +1,6 @@
 import { Box, Drawer, TextField, Button } from "@mui/material";
 import DrawerHeader from "components/drawer-header";
-import { closeCreateAgency, selectIsOpenAgencyCreate } from "features/jobs-slice";
+import { selectIsCreateDrawerOpen, closeCreateDrawer } from "features/jobs-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -8,9 +8,9 @@ import * as yup from 'yup';
 const JobCreate = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsOpenAgencyCreate);
+  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
 
-  const handleClose = () => dispatch(closeCreateAgency());
+  const handleClose = () => dispatch(closeCreateDrawer());
 
   const validationSchema = yup.object({
     email: yup

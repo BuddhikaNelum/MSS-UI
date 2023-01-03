@@ -1,6 +1,6 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { useLazyFilterReservationsQuery } from "api/jobsAPISlice";
-import { toggleAgencyDetails } from "features/jobs-slice";
+import { toggleDetailsDrawer } from "features/jobs-slice";
 import { useAppDispatch } from "hooks/hooks";
 import { useEffect, useState } from "react";
 import DataRow from "./data-row";
@@ -33,7 +33,7 @@ const JobList = () => {
     setPage(0);
   };
 
-  const handleViewDetails = () => dispatch(toggleAgencyDetails());
+  const handleViewDetails = () => dispatch(toggleDetailsDrawer());
 
   return (
     <Box display="flex" flexDirection="column">
