@@ -6,7 +6,7 @@ import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from "moment";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { closeCreateHotelReservation, selectIsCreateRecordDrawerOpen } from "features/orders-slice";
+import { closeCreateDrawer, selectIsCreateDrawerOpen } from "features/orders-slice";
 import DrawerHeader from "components/drawer-header";
 import { THotelRoomOption } from 'types/hotelRoom';
 import { useLazyFilterHotelsQuery } from 'api/inventoryAPISlice';
@@ -25,7 +25,7 @@ const InventoryCreate = () => {
   const [hotelId, setHotelId] = useState<number | undefined>(undefined);
 
   const today = moment();
-  const isOpen = useAppSelector(selectIsCreateRecordDrawerOpen);
+  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
   const user = useAppSelector(selectCurrUser)
 
   const [triggerFilterHotels] = useLazyFilterHotelsQuery();
@@ -34,7 +34,7 @@ const InventoryCreate = () => {
   const [triggerCreateBooking, { isLoading: isLoadingBooking }] = useCreateBookingMutation();
   const [triggerPayLater, { isLoading: isLoadingPayLater }] = usePayLaterMutation();
 
-  const handleClose = () => dispatch(closeCreateHotelReservation());
+  const handleClose = () => dispatch(closeCreateDrawer());
 
   useEffect(() => {
     (async () => {

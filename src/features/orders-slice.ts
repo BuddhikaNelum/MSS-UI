@@ -1,46 +1,57 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'store/store';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "store/store";
+import { TOrder } from "types/order";
 
 interface IState {
   reload: boolean;
-  isCreateReservationDrawerOpen: boolean;
-  isOpenReservationDetails: boolean;
+  order: any;
+  isOpenCreateDrawer: boolean;
+  isOpenDetailsDrawer: boolean;
 }
 
 const initialState: IState = {
   reload: false,
-  isCreateReservationDrawerOpen: false,
-  isOpenReservationDetails: false,
+  order: undefined,
+  isOpenCreateDrawer: false,
+  isOpenDetailsDrawer: false,
 };
 
 export const ordersSlice = createSlice({
-  name: 'orders',
+  name: "orders",
   initialState,
   reducers: {
     setReload: (state: IState, action: PayloadAction<boolean>) => {
       state.reload = action.payload;
     },
-    openCreateHotelReservation: (state: IState) => {
-      state.isCreateReservationDrawerOpen = true;
+    openCreateDrawer: (
+      state: IState,
+      action: PayloadAction<TOrder | undefined>
+    ) => {
+      state.isOpenCreateDrawer = true;
+      state.order = action.payload;
     },
-    closeCreateHotelReservation: (state: IState) => {
-      state.isCreateReservationDrawerOpen = false;
+    closeCreateDrawer: (state: IState) => {
+      state.isOpenCreateDrawer = false;
     },
-    toggleReservationDetails: (state: IState) => {
-      state.isOpenReservationDetails = !state.isOpenReservationDetails;
+    toggleDetailsDrawer: (state: IState, action: PayloadAction<any>) => {
+      state.isOpenDetailsDrawer = !state.isOpenDetailsDrawer;
+      state.order = action.payload;
     },
   },
 });
 
 export const {
   setReload,
-  openCreateHotelReservation,
-  closeCreateHotelReservation,
-  toggleReservationDetails,
+  openCreateDrawer,
+  closeCreateDrawer,
+  toggleDetailsDrawer,
 } = ordersSlice.actions;
 
-export const selectShouldReloadRoomList = (state: RootState) => state.orders.reload;
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.orders.isCreateReservationDrawerOpen;
-export const selectIsOpenReservationDetails = (state: RootState) => state.orders.isOpenReservationDetails;
+export const selectShouldReload = (state: RootState) => state.orders.reload;
+export const selectIsCreateDrawerOpen = (state: RootState) =>
+  state.orders.isOpenCreateDrawer;
+export const selectIsDetailsDrawerOpen = (state: RootState) =>
+  state.orders.isOpenDetailsDrawer;
+export const selectOrder = (state: RootState) => state.orders.order;
 
 export default ordersSlice.reducer;

@@ -10,7 +10,7 @@ const ManageOrders = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.EMPLOYEES));
+    dispatch(setCurrScreen(AppScreen.ORDERS));
   }, []);
 
   return (

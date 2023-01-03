@@ -1,6 +1,6 @@
 import { Alert, Box, Drawer, Stack, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { selectIsOpenReservationDetails, toggleReservationDetails } from "features/orders-slice";
+import { selectIsDetailsDrawerOpen, toggleDetailsDrawer } from "features/inventory-slice";
 import DrawerHeader from "components/drawer-header";
 import RoomCard from 'components/room-card';
 import PaidTwoToneIcon from '@mui/icons-material/PaidTwoTone';
@@ -8,9 +8,9 @@ import PaidTwoToneIcon from '@mui/icons-material/PaidTwoTone';
 const InventoryDetails = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsOpenReservationDetails);
+  const isOpen = useAppSelector(selectIsDetailsDrawerOpen);
 
-  const handleClose = () => dispatch(toggleReservationDetails());
+  const handleClose = () => dispatch(toggleDetailsDrawer());
 
   return (
     <Drawer

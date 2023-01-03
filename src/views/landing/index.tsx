@@ -3,7 +3,6 @@ import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import FeatureCard from './feature-card';
 import TopBar from './top-bar';
-import CreateReservation from './create-reservation';
 import CheckReservation from './check-reservation';
 
 import ImgSpa from 'assets/images/spa.jpg';
@@ -92,9 +91,6 @@ const Landing = () => {
             <Typography variant='body1'>&copy; Infinity Group Hotels</Typography>
           </Box>
         </div>
-
-        <CreateReservation open={newReservationPop} stayInfo={stayInfo} onClose={handleCloseNewReservation}  />
-
         <PaymentVerification />
       </Box>
     </Suspense>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Box, Drawer, TextField, Button } from "@mui/material";
 import DrawerHeader from "components/drawer-header";
-import { closeCreateHotelDrawer, selectHotel, selectIsCreateRecordDrawerOpen, setReload } from "features/inventory-slice";
+import { closeCreateDrawer, selectDepartment, selectIsCreateDrawerOpen, setReload } from "features/departments-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -15,8 +15,8 @@ const DepartmentsCreate = () => {
   const [triggerCreateHotel, { isLoading: isCreateLoading }] = useCreateHotelMutation();
   const [triggerUpdateHotelRoom, { isLoading: isUpdateLoading }] = useUpdateHotelMutation();
 
-  const isOpen = useAppSelector(selectIsCreateRecordDrawerOpen);
-  const hotel = useAppSelector(selectHotel)
+  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
+  const hotel = useAppSelector(selectDepartment)
 
   useEffect(() => {
     if (isOpen) {
@@ -24,7 +24,7 @@ const DepartmentsCreate = () => {
     }
   }, [isOpen])
 
-  const handleClose = () => dispatch(closeCreateHotelDrawer());
+  const handleClose = () => dispatch(closeCreateDrawer());
 
   const handleCreateHotel = async (obj: THotelCreate) => {
     triggerCreateHotel(obj)

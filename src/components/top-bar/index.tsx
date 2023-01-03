@@ -1,6 +1,5 @@
 import { styled } from "@material-ui/styles";
 import { AppBar, Box, Button, Toolbar, Typography, useTheme } from "@mui/material";
-import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
 import BusinessIcon from "@mui/icons-material/Business";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
@@ -9,11 +8,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import { selectCurrScreen } from 'features/app-slice';
 import { AppScreen } from "enums/screen";
 import { topBarTitle } from "./metadata";
-import { openCreateHotelDrawer } from "features/inventory-slice";
+import { openCreateDrawer as openCreateInventoryDrawer } from "features/inventory-slice";
 import { openCreateDrawer as openCreateJobDrawer } from "features/jobs-slice";
-import { openCreateHotelReservation } from "features/orders-slice";
+import { openCreateDrawer as openCreateOrderDrawer } from "features/orders-slice";
 import { openCreateDrawer as openCreateEmployeeDrawer } from "features/employees-slice";
-import { openCreateRoomDrawer } from "features/departments-slice";
+import { openCreateDrawer as openCreateDepartmentDrawer } from "features/departments-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 
 const TopBar = () => {
@@ -63,16 +62,16 @@ const TopBar = () => {
   const handlePrimaryAction = () => {
     switch (currScreen) {
       case AppScreen.DEPARTMENTS:
-        dispatch(openCreateRoomDrawer());
+        dispatch(openCreateDepartmentDrawer());
         break;
       case AppScreen.INVENTORY:
-        dispatch(openCreateHotelDrawer());
+        dispatch(openCreateInventoryDrawer());
         break;
       case AppScreen.EMPLOYEES:
         dispatch(openCreateEmployeeDrawer());
         break;
       case AppScreen.ORDERS:
-        dispatch(openCreateHotelReservation());
+        dispatch(openCreateOrderDrawer());
         break;
       case AppScreen.JOBS:
         dispatch(openCreateJobDrawer());

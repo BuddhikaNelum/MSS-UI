@@ -1,19 +1,19 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
-import { THotel } from 'types/hotel';
+import { TInventory } from 'types/inventory';
 
 interface IState {
   reload: boolean;
-  hotel: THotel | undefined;
-  isCreateHotelDrawerOpen: boolean;
-  isOpenHotelDetails: boolean;
+  inventory: any;
+  isOpenCreateDrawer: boolean;
+  isOpenDetailsDrawer: boolean;
 }
 
 const initialState: IState = {
   reload: false,
-  hotel: undefined,
-  isCreateHotelDrawerOpen: false,
-  isOpenHotelDetails: false
+  inventory: undefined,
+  isOpenCreateDrawer: false,
+  isOpenDetailsDrawer: false,
 };
 
 export const inventorySlice = createSlice({
@@ -23,36 +23,33 @@ export const inventorySlice = createSlice({
     setReload: (state: IState, action: PayloadAction<boolean>) => {
       state.reload = action.payload;
     },
-    openCreateHotelDrawer: (state: IState, action: PayloadAction<THotel | undefined>) => {
-      state.isCreateHotelDrawerOpen = true;
-      state.hotel = action.payload;
+    openCreateDrawer: (
+      state: IState,
+      action: PayloadAction<TInventory | undefined>
+    ) => {
+      state.isOpenCreateDrawer = true;
     },
-    closeCreateHotelDrawer: (state: IState) => {
-      state.isCreateHotelDrawerOpen = false;
-      state.hotel = undefined;
+    closeCreateDrawer: (state: IState) => {
+      state.isOpenCreateDrawer = false;
     },
-    openHotelDetailsDrawer: (state: IState, action: PayloadAction<THotel>) => {
-      state.isOpenHotelDetails = !state.isOpenHotelDetails;
-      state.hotel = action.payload;
+    toggleDetailsDrawer: (state: IState, action: PayloadAction<TInventory | undefined>) => {
+      state.isOpenDetailsDrawer = !state.isOpenDetailsDrawer;
     },
-    closeHotelDetailsDrawer: (state: IState) => {
-      state.isOpenHotelDetails = !state.isOpenHotelDetails;
-      state.hotel = undefined;
-    }
   },
 });
 
 export const {
   setReload,
-  openCreateHotelDrawer,
-  closeCreateHotelDrawer,
-  openHotelDetailsDrawer,
-  closeHotelDetailsDrawer
+  openCreateDrawer,
+  closeCreateDrawer,
+  toggleDetailsDrawer,
 } = inventorySlice.actions;
 
-export const selectShouldReloadHotelList = (state: RootState) => state.inventory.reload;
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.inventory.isCreateHotelDrawerOpen;
-export const selectIsOpenHotelDetails = (state: RootState) => state.inventory.isOpenHotelDetails;
-export const selectHotel = (state: RootState) => state.inventory.hotel;
+export const selectShouldReload = (state: RootState) =>
+  state.departments.reload;
+export const selectIsCreateDrawerOpen = (state: RootState) =>
+  state.departments.isOpenCreateDrawer;
+export const selectIsDetailsDrawerOpen = (state: RootState) =>
+  state.departments.isOpenDetailsDrawer;
 
 export default inventorySlice.reducer;

@@ -1,18 +1,18 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { THotelRoom, THotelRoomCreate } from "types/hotelRoom";
+import { THotelRoomCreate } from "types/hotelRoom";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
   reducerPath: '/ordersApi',
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({
-    filterRoomsByHotelId: builder.query<Array<THotelRoom>, number>({
+    filterRoomsByHotelId: builder.query<Array<any>, number>({
       query: (hotellId) => `/hotel/rooms/${hotellId}`
     }),
     getHotelRoomById: builder.query<any, number>({
       query: (roomlId) => `/hotel/room/${roomlId}`
     }),
-    createHotelRoom: builder.mutation<THotelRoom, THotelRoomCreate>({
+    createHotelRoom: builder.mutation<any, THotelRoomCreate>({
       query: (data) => ({
         url: '/hotel/addRoom',
         method: 'POST',

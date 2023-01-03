@@ -1,65 +1,56 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'store/store';
-import { THotelRoom } from 'types/hotelRoom';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "store/store";
+import { TOrder } from "types/order";
 
 interface IState {
   reload: boolean;
-  hotelRoom: THotelRoom | undefined;
-  hotels: Array<{ id: number, name: string }>;
-  isCreateHotelDrawerOpen: boolean;
-  isOpenHotelDetails: boolean;
+  department: any;
+  isOpenCreateDrawer: boolean;
+  isOpenDetailsDrawer: boolean;
 }
 
 const initialState: IState = {
   reload: false,
-  hotelRoom: undefined,
-  hotels: [],
-  isCreateHotelDrawerOpen: false,
-  isOpenHotelDetails: false
+  department: undefined,
+  isOpenCreateDrawer: false,
+  isOpenDetailsDrawer: false,
 };
 
 export const departmentsSlice = createSlice({
-  name: 'departments',
+  name: "departments",
   initialState,
   reducers: {
     setReload: (state: IState, action: PayloadAction<boolean>) => {
       state.reload = action.payload;
     },
-    openCreateRoomDrawer: (state: IState, action: PayloadAction<THotelRoom | undefined>) => {
-      state.isCreateHotelDrawerOpen = true;
-      state.hotelRoom = action.payload;
+    openCreateDrawer: (
+      state: IState,
+      action: PayloadAction<TOrder | undefined>
+    ) => {
+      state.isOpenCreateDrawer = true;
     },
-    closeCreateRoomDrawer: (state: IState) => {
-      state.isCreateHotelDrawerOpen = false;
-      state.hotelRoom = undefined;
+    closeCreateDrawer: (state: IState) => {
+      state.isOpenCreateDrawer = false;
     },
-    openRoomDetailsDrawer: (state: IState, action: PayloadAction<THotelRoom>) => {
-      state.isOpenHotelDetails = !state.isOpenHotelDetails;
-      state.hotelRoom = action.payload;
-    },
-    closeRoomDetailsDrawer: (state: IState) => {
-      state.isOpenHotelDetails = !state.isOpenHotelDetails;
-      state.hotelRoom = undefined;
-    },
-    setHotels: (state: IState, action: PayloadAction<Array<{ id: number, name: string }>>) => {
-      state.hotels = action.payload;
+    toggleDetailsDrawer: (state: IState, action: PayloadAction<any>) => {
+      state.isOpenDetailsDrawer = !state.isOpenDetailsDrawer;
     },
   },
 });
 
 export const {
   setReload,
-  openCreateRoomDrawer,
-  closeCreateRoomDrawer,
-  openRoomDetailsDrawer,
-  closeRoomDetailsDrawer,
-  setHotels
+  openCreateDrawer,
+  closeCreateDrawer,
+  toggleDetailsDrawer,
 } = departmentsSlice.actions;
 
-export const selectShouldReloadRoomList = (state: RootState) => state.departments.reload;
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.departments.isCreateHotelDrawerOpen;
-export const selectIsOpenRoomDetails = (state: RootState) => state.departments.isOpenHotelDetails;
-export const selectHotelRoom = (state: RootState) => state.departments.hotelRoom;
-export const selectHotels = (state: RootState) => state.departments.hotels;
+export const selectShouldReload = (state: RootState) =>
+  state.departments.reload;
+export const selectIsCreateDrawerOpen = (state: RootState) =>
+  state.departments.isOpenCreateDrawer;
+export const selectIsDetailsDrawerOpen = (state: RootState) =>
+  state.departments.isOpenDetailsDrawer;
+  export const selectDepartment = (state: RootState) => state.departments.department;
 
 export default departmentsSlice.reducer;

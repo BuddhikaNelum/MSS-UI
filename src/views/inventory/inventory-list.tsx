@@ -1,6 +1,6 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { useLazyFilterReservationsQuery } from "api/jobsAPISlice";
-import { selectShouldReloadRoomList, setReload, toggleReservationDetails } from "features/orders-slice";
+import { selectShouldReload, setReload, toggleDetailsDrawer } from "features/inventory-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useEffect, useState } from "react";
 import DataRow from "./data-row";
@@ -10,7 +10,7 @@ const InventoryList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const dispatch = useAppDispatch();
-  const shouldReload = useAppSelector(selectShouldReloadRoomList)
+  const shouldReload = useAppSelector(selectShouldReload)
 
   const [triggerFilterReservations, { data, isLoading }] = useLazyFilterReservationsQuery();
 
@@ -40,7 +40,7 @@ const InventoryList = () => {
     setPage(0);
   };
 
-  const handleViewDetails = () => dispatch(toggleReservationDetails());
+  const handleViewDetails = () => dispatch(toggleDetailsDrawer());
 
   return (
     <Box>

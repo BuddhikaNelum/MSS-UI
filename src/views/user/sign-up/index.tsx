@@ -58,9 +58,9 @@ export default function SignUp() {
 
   const formik = useFormik({
     initialValues: {
+      username: '',
       email: '',
       phone: '',
-      name: '',
       businessRegNo: '',
       password: '',
       passwordConfirmation: '',
@@ -68,8 +68,8 @@ export default function SignUp() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const reqBody = {
+        username: values.username,
         email: values.email,
-        name: values.name,
         phone: values.phone,
         businessRegNo: values.businessRegNo,
         userType: UserType.TRAVEL_AGENCY,
@@ -102,16 +102,16 @@ export default function SignUp() {
         </Typography>
         <form onSubmit={formik.handleSubmit}>
           <TextField
-            autoComplete="name"
+            autoComplete="username"
             margin="normal"
-            name="name"
+            name="username"
             variant="outlined"
             fullWidth
-            id="name"
-            label="Name"
+            id="username"
+            label="Username"
             onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
             autoFocus
           />
 
@@ -119,10 +119,10 @@ export default function SignUp() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="phone"
-            label="Phone"
-            name="phone"
-            autoComplete="phone"
+            id="userType"
+            label="User Type"
+            name="userType"
+            autoComplete="userType"
             onChange={formik.handleChange}
             error={formik.touched.phone && Boolean(formik.errors.phone)}
             helperText={formik.touched.phone && formik.errors.phone}
@@ -145,10 +145,10 @@ export default function SignUp() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="businessRegNo"
-            label="Business Registration #"
-            name="businessRegNo"
-            autoComplete="businessRegNo"
+            id="phone"
+            label="Phone"
+            name="phone"
+            autoComplete="phone"
             onChange={formik.handleChange}
             error={formik.touched.businessRegNo && Boolean(formik.errors.businessRegNo)}
             helperText={formik.touched.businessRegNo && formik.errors.businessRegNo}

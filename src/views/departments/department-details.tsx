@@ -1,16 +1,15 @@
-import { Alert, Box, Drawer, Stack, Typography } from "@mui/material";
+import { Box, Drawer, Stack, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { selectIsOpenHotelDetails, openHotelDetailsDrawer, closeHotelDetailsDrawer, selectHotel } from "features/inventory-slice";
+import { selectIsCreateDrawerOpen, closeCreateDrawer, selectDepartment } from "features/departments-slice";
 import DrawerHeader from "components/drawer-header";
-import PaidTwoToneIcon from '@mui/icons-material/PaidTwoTone';
 
 const DepartmentDetails = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsOpenHotelDetails);
-  const hotel = useAppSelector(selectHotel)
+  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
+  const hotel = useAppSelector(selectDepartment)
 
-  const handleClose = () => dispatch(closeHotelDetailsDrawer());
+  const handleClose = () => dispatch(closeCreateDrawer());
 
   return (
     <Drawer

@@ -9,7 +9,7 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import { selectShouldReloadHotelList } from "features/inventory-slice";
+import { selectShouldReload } from "features/inventory-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import DataRow from "./data-row";
 
@@ -20,7 +20,7 @@ const DepartmentList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const dispatch = useAppDispatch();
-  const shouldReload = useAppSelector(selectShouldReloadHotelList);
+  const shouldReload = useAppSelector(selectShouldReload);
 
   // const [triggerFilterHotels, { data }] = useLazyFilterHotelsQuery();
 

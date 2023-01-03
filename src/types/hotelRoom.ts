@@ -9,17 +9,6 @@ type THotelRoomCreate = {
   hotelId: number,
 }
 
-type THotelRoom = {
-  id?: number;
-  name: string,
-  roomType: number,
-  roomNumber: number,
-  beds: number,
-  occupants: number,
-  price: number,
-  hotelId: number,
-}
-
 type THotelRoomOption = {
   roomType: number,
   roomTypeName: string,
@@ -29,6 +18,5 @@ type THotelRoomOption = {
 
 export type {
   THotelRoomCreate,
-  THotelRoom,
   THotelRoomOption
 }
