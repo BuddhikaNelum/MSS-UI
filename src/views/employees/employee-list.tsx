@@ -1,30 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { useLazyFilterEmployeesQuery } from "api/employeeAPISlice";
-import { openCreateEmployee, openEmployeeDetailsDrawer, selectShouldReloadEmployeeList, setReload } from "features/employees-slice";
+import { openCreateDrawer, toggleDetailsDrawer, selectShouldReload } from "features/employees-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { TEmployee } from "types/employee";
 import DataRow from "./data-row";
 
+import { data } from "./mockdata";
+
 const HotelList = () => {
   const dispatch = useAppDispatch();
-  const shouldReload = useAppSelector(selectShouldReloadEmployeeList)
+  const shouldReload = useAppSelector(selectShouldReload)
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [triggerFilterEmployees, { data }] = useLazyFilterEmployeesQuery();
+  // const [triggerFilterEmployees, { data }] = useLazyFilterEmployeesQuery();
 
-  useEffect(() => {
-    if (shouldReload) {
-      triggerFilterEmployees()
-      dispatch(setReload(false))
-    }
-  }, [shouldReload]);
+  // useEffect(() => {
+  //   if (shouldReload) {
+  //     triggerFilterEmployees()
+  //     dispatch(setReload(false))
+  //   }
+  // }, [shouldReload]);
 
-  useEffect(() => {
-    triggerFilterEmployees();
-  }, []);
+  // useEffect(() => {
+  //   triggerFilterEmployees();
+  // }, []);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -40,27 +41,26 @@ const HotelList = () => {
     setPage(0);
   };
 
-  const handleViewDetails = (employee: TEmployee) => dispatch(openEmployeeDetailsDrawer(employee));
-  const handleUpdateDetails = (employee: TEmployee) => dispatch(openCreateEmployee(employee));
+  const handleViewDetails = (employee: TEmployee) => dispatch(toggleDetailsDrawer(employee));
+  const handleUpdateDetails = (employee: TEmployee) => dispatch(openCreateDrawer(employee));
 
   return (
     <Box>
       <Box>
         <TableContainer >
-          <Table stickyHeader>
+          <Table size="small" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell>Emp. Id</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Phone</TableCell>
+                <TableCell>Department</TableCell>
                 <TableCell>Role</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
               {data?.map((row) => (
-                <DataRow key={row.id} row={row} onViewDetails={handleViewDetails} onUpdateDetails={handleUpdateDetails} />
+                <DataRow key={row._id} row={row} onViewDetails={handleViewDetails} onUpdateDetails={handleUpdateDetails} />
               ))}
             </TableBody>
           </Table>

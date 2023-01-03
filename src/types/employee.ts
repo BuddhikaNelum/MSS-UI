@@ -9,11 +9,11 @@ type TEmployeeCreate = {
 }
 
 type TEmployee = {
-  id: number,
-  userType: UserType,
-  email: string,
-  name: string,
-  phone: string,
+  _id: string;
+  name: string;
+  role: string;
+  department: string;
+  email: string;
 }
 
 export type {

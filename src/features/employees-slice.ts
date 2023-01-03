@@ -5,15 +5,15 @@ import { TEmployee } from 'types/employee';
 interface IState {
   reload: boolean;
   employee: TEmployee | undefined;
-  isCreateEmployeeDrawerOpen: boolean;
-  isOpenEmployeeDetails: boolean;
+  isOpenCreateDrawer: boolean;
+  isOpenDetailsDrawer: boolean;
 }
 
 const initialState: IState = {
   reload: false,
   employee: undefined,
-  isCreateEmployeeDrawerOpen: false,
-  isOpenEmployeeDetails: false
+  isOpenCreateDrawer: false,
+  isOpenDetailsDrawer: false
 };
 
 export const employeesSlice = createSlice({
@@ -23,34 +23,29 @@ export const employeesSlice = createSlice({
     setReload: (state: IState, action: PayloadAction<boolean>) => {
       state.reload = action.payload;
     },
-    openCreateEmployee: (state: IState, action: PayloadAction<TEmployee | undefined>) => {
-      state.isCreateEmployeeDrawerOpen = true;
+    openCreateDrawer: (state: IState, action: PayloadAction<TEmployee | undefined>) => {
+      state.isOpenCreateDrawer = true;
     },
-    closeCreateEmployee: (state: IState) => {
-      state.isCreateEmployeeDrawerOpen = false;
+    closeCreateDrawer: (state: IState) => {
+      state.isOpenCreateDrawer = false;
     },
-    openEmployeeDetailsDrawer: (state: IState, action: PayloadAction<TEmployee>) => {
-      state.isOpenEmployeeDetails = !state.isOpenEmployeeDetails;
+    toggleDetailsDrawer: (state: IState, action: PayloadAction<TEmployee>) => {
+      state.isOpenDetailsDrawer = !state.isOpenDetailsDrawer;
       state.employee = action.payload;
-    },
-    closeEmployeeDetailsDrawer: (state: IState) => {
-      state.isOpenEmployeeDetails = !state.isOpenEmployeeDetails;
-      state.employee = undefined;
     }
   },
 });
 
 export const {
   setReload,
-  openCreateEmployee,
-  closeCreateEmployee,
-  openEmployeeDetailsDrawer,
-  closeEmployeeDetailsDrawer,
+  openCreateDrawer,
+  closeCreateDrawer,
+  toggleDetailsDrawer
 } = employeesSlice.actions;
 
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.employee.isCreateEmployeeDrawerOpen;
-export const selectShouldReloadEmployeeList = (state: RootState) => state.employee.reload;
-export const selectIsOpenEmployeeDetails = (state: RootState) => state.employee.isOpenEmployeeDetails;
+export const selectShouldReload = (state: RootState) => state.employee.reload;
 export const selectEmployee = (state: RootState) => state.employee.employee;
+export const selectIsCreateDrawerOpen = (state: RootState) => state.employee.isOpenCreateDrawer;
+export const selectIsDetailsDrawerOpen = (state: RootState) => state.employee.isOpenDetailsDrawer;
 
 export default employeesSlice.reducer;
