@@ -43,15 +43,17 @@ const JobList = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Phone No.</TableCell>
+                <TableCell>Department</TableCell>
                 <TableCell>Status</TableCell>
+                <TableCell>Completed By</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell>Completed At</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, i) => (
-                <DataRow key={i} row={row} onViewDetails={handleViewDetails} />
+              {data.map((row) => (
+                <DataRow key={row._id} row={row} onViewDetails={handleViewDetails} />
               ))}
             </TableBody>
           </Table>

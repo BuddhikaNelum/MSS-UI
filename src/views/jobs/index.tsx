@@ -11,7 +11,7 @@ const ManageJobs = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCurrScreen(AppScreen.TRAVEL_AGENCIES));
+    dispatch(setCurrScreen(AppScreen.JOBS));
   }, []);
 
   return (

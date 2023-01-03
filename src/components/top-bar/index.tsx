@@ -29,7 +29,7 @@ const TopBar = () => {
         return topBarTitle[currScreen];
       case AppScreen.MANAGE_CLERK:
         return topBarTitle[currScreen];
-      case AppScreen.TRAVEL_AGENCIES:
+      case AppScreen.JOBS:
         return topBarTitle[currScreen];
       default:
         break;
@@ -45,7 +45,7 @@ const TopBar = () => {
         return <BedOutlinedIcon />;
       case AppScreen.MANAGE_CLERK:
         return <BadgeOutlinedIcon />;
-      case AppScreen.TRAVEL_AGENCIES:
+      case AppScreen.JOBS:
         return <LuggageIcon />;
       default:
         break;
@@ -70,7 +70,7 @@ const TopBar = () => {
       case AppScreen.MANAGE_CLERK:
         dispatch(openCreateEmployee());
         break;
-      case AppScreen.TRAVEL_AGENCIES:
+      case AppScreen.JOBS:
         break;
       default:
         break;

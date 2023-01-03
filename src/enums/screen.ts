@@ -3,5 +3,5 @@ export enum AppScreen {
     MANAGE_HOTELS,
     HOTEL_ROOMS,
     MANAGE_CLERK,
-    TRAVEL_AGENCIES
+    JOBS
   }
