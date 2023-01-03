@@ -18,7 +18,7 @@ const initialState: IState = {
   isOpenHotelDetails: false
 };
 
-export const hotelSlice = createSlice({
+export const departmentsSlice = createSlice({
   name: 'departments',
   initialState,
   reducers: {
@@ -54,12 +54,12 @@ export const {
   openRoomDetailsDrawer,
   closeRoomDetailsDrawer,
   setHotels
-} = hotelSlice.actions;
+} = departmentsSlice.actions;
 
-export const selectShouldReloadRoomList = (state: RootState) => state.hotelRoom.reload;
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.hotelRoom.isCreateHotelDrawerOpen;
-export const selectIsOpenRoomDetails = (state: RootState) => state.hotelRoom.isOpenHotelDetails;
-export const selectHotelRoom = (state: RootState) => state.hotelRoom.hotelRoom;
-export const selectHotels = (state: RootState) => state.hotelRoom.hotels;
+export const selectShouldReloadRoomList = (state: RootState) => state.departments.reload;
+export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.departments.isCreateHotelDrawerOpen;
+export const selectIsOpenRoomDetails = (state: RootState) => state.departments.isOpenHotelDetails;
+export const selectHotelRoom = (state: RootState) => state.departments.hotelRoom;
+export const selectHotels = (state: RootState) => state.departments.hotels;
 
-export default hotelSlice.reducer;
+export default departmentsSlice.reducer;

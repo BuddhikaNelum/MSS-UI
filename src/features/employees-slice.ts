@@ -16,7 +16,7 @@ const initialState: IState = {
   isOpenEmployeeDetails: false
 };
 
-export const employeeSlice = createSlice({
+export const employeesSlice = createSlice({
   name: 'employees',
   initialState,
   reducers: {
@@ -46,11 +46,11 @@ export const {
   closeCreateEmployee,
   openEmployeeDetailsDrawer,
   closeEmployeeDetailsDrawer,
-} = employeeSlice.actions;
+} = employeesSlice.actions;
 
 export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.employee.isCreateEmployeeDrawerOpen;
 export const selectShouldReloadEmployeeList = (state: RootState) => state.employee.reload;
 export const selectIsOpenEmployeeDetails = (state: RootState) => state.employee.isOpenEmployeeDetails;
 export const selectEmployee = (state: RootState) => state.employee.employee;
 
-export default employeeSlice.reducer;
+export default employeesSlice.reducer;

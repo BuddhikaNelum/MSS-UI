@@ -13,7 +13,7 @@ const initialState: IState = {
   isOpenReservationDetails: false,
 };
 
-export const reservationSlice = createSlice({
+export const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
@@ -37,10 +37,10 @@ export const {
   openCreateHotelReservation,
   closeCreateHotelReservation,
   toggleReservationDetails,
-} = reservationSlice.actions;
+} = ordersSlice.actions;
 
-export const selectShouldReloadRoomList = (state: RootState) => state.reservation.reload;
-export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.reservation.isCreateReservationDrawerOpen;
-export const selectIsOpenReservationDetails = (state: RootState) => state.reservation.isOpenReservationDetails;
+export const selectShouldReloadRoomList = (state: RootState) => state.orders.reload;
+export const selectIsCreateRecordDrawerOpen = (state: RootState) => state.orders.isCreateReservationDrawerOpen;
+export const selectIsOpenReservationDetails = (state: RootState) => state.orders.isOpenReservationDetails;
 
-export default reservationSlice.reducer;
+export default ordersSlice.reducer;

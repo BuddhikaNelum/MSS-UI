@@ -11,7 +11,7 @@ const initialState: IState = {
   isOpenAgencyDetails: false,
 };
 
-export const reservationSlice = createSlice({
+export const jobsSlice = createSlice({
   name: 'jobs',
   initialState,
   reducers: {
@@ -31,9 +31,9 @@ export const {
   openCreateAgency,
   closeCreateAgency,
   toggleAgencyDetails,
-} = reservationSlice.actions;
+} = jobsSlice.actions;
 
-export const selectIsOpenAgencyCreate = (state: RootState) => state.travelAgency.isOpenAgencyCreate;
-export const selectIsOpenAgencyDetails = (state: RootState) => state.travelAgency.isOpenAgencyDetails;
+export const selectIsOpenAgencyCreate = (state: RootState) => state.jobs.isOpenAgencyCreate;
+export const selectIsOpenAgencyDetails = (state: RootState) => state.jobs.isOpenAgencyDetails;
 
-export default reservationSlice.reducer;
+export default jobsSlice.reducer;
