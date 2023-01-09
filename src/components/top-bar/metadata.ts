@@ -3,6 +3,7 @@ import { AppScreen } from "enums/screen"
 type TAppScreen = Record<AppScreen, number>;
 
 const topBarTitle: { [key in keyof TAppScreen]: string } = {
+  [AppScreen.DASHBOARD]: "Dashboard",
   [AppScreen.DEPARTMENTS]: "Departments",
   [AppScreen.INVENTORY]: "Inventory",
   [AppScreen.EMPLOYEES]: "Employees",
