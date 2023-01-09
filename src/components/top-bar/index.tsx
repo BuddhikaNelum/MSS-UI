@@ -4,8 +4,9 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import PersonIcon from "@mui/icons-material/Person";
-import { selectCurrScreen } from "features/app-slice";
+import PersonIcon from '@mui/icons-material/Person';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { selectCurrScreen } from 'features/app-slice';
 import { AppScreen } from "enums/screen";
 import { topBarTitle } from "./metadata";
 import { openCreateDrawer as openCreateInventoryDrawer } from "features/inventory-slice";
@@ -21,8 +22,14 @@ const TopBar = () => {
 
   const currScreen = useAppSelector(selectCurrScreen);
 
+  console.log("currScreen", currScreen);
+  
+
   const getTitle = () => {
+    debugger;
     switch (currScreen) {
+      case AppScreen.DASHBOARD:
+        return topBarTitle[currScreen];
       case AppScreen.DEPARTMENTS:
         return topBarTitle[currScreen];
       case AppScreen.INVENTORY:
@@ -40,6 +47,8 @@ const TopBar = () => {
 
   const getIcon = () => {
     switch (currScreen) {
+      case AppScreen.DASHBOARD:
+        return <DashboardIcon />;
       case AppScreen.DEPARTMENTS:
         return <BusinessIcon />;
       case AppScreen.INVENTORY:
@@ -103,13 +112,13 @@ const TopBar = () => {
           {getTitle()}
         </Typography>
 
-        {isNewRecordBtnEnabled && (
-          <Box sx={{ marginLeft: "auto" }}>
-            <Button sx={{ color: "#fff" }} variant="outlined" onClick={handlePrimaryAction} color="secondary">
-              New Record
-            </Button>
-          </Box>
-        )}
+        {currScreen === 0 ? <></> : 
+        <Box sx={{ marginLeft: 'auto' }}>
+          <Button sx={{ color: '#fff' }} variant='outlined' onClick={handlePrimaryAction} color='secondary'>
+            New Record
+          </Button>
+        </Box>
+        }
       </AppToolbar>
     </AppBar>
   );

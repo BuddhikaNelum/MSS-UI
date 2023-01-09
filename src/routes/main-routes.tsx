@@ -4,6 +4,7 @@ import AppLayout from 'layout/app-layout';
 import Loadable from 'components/Loadable';
 import RouteRegistry from './route-registry';
 import { PrivateRoute } from 'components/private-route';
+import Dashboard from 'views/dashboard';
 
 const Inventory = Loadable(lazy(() => import('views/inventory')));
 const Departments = Loadable(lazy(() => import('views/departments')));
@@ -18,6 +19,16 @@ const DashboardRoutes = {
     {
       index: true,
       element: <Navigate to={RouteRegistry.app.paths.departments.path} />,
+    },
+    // {
+    //   // index: true,
+    //   // element: <Navigate to={RouteRegistry.app.paths.departments.path} />,
+    //   path: RouteRegistry.app.paths.departments.path,
+    //   element: <Departments />
+    // },
+    {
+      path: RouteRegistry.app.paths.dashboard.path,
+      element: <Dashboard />
     },
     {
       path: RouteRegistry.app.paths.inventory.path,

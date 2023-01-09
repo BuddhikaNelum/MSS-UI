@@ -7,6 +7,9 @@ const RouteRegistry = {
       root: {
         path: '/app'
       },
+      dashboard: {
+        path: '/app/dashboard'
+      },
       jobs: {
         path: '/app/jobs'
       },

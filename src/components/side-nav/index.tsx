@@ -9,6 +9,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PersonIcon from '@mui/icons-material/Person';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { removeValue } from "utils/storage-util";
 import { UserType } from "enums/userType";
 import { useAppSelector } from "hooks/hooks";
@@ -33,6 +34,13 @@ const categories = [
     id: "Manage",
     roles: [UserType.MANAGER],
     children: [
+      {
+        id: "Dashboard",
+        icon: <DashboardIcon />,
+        active: true,
+        path: RouteRegistry.app.paths.dashboard.path,
+        roles: [UserType.MANAGER],
+      },
       {
         id: "Departments",
         icon: <BusinessIcon />,
