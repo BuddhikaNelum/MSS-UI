@@ -5,6 +5,7 @@ import Loadable from 'components/Loadable';
 import RouteRegistry from './route-registry';
 import Dashboard from 'views/dashboard';
 import { PrivateRoute } from 'components/private-route';
+import Dashboard from 'views/dashboard';
 
 const Inventory = Loadable(lazy(() => import('views/inventory')));
 const Departments = Loadable(lazy(() => import('views/departments')));

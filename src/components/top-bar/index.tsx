@@ -112,13 +112,13 @@ const TopBar = () => {
           {getTitle()}
         </Typography>
 
-        {isNewRecordBtnEnabled && (
-          <Box sx={{ marginLeft: "auto" }}>
-            <Button sx={{ color: "#fff" }} variant="outlined" onClick={handlePrimaryAction} color="secondary">
-              New Record
-            </Button>
-          </Box>
-        )}
+        {currScreen === 0 ? <></> : 
+        <Box sx={{ marginLeft: 'auto' }}>
+          <Button sx={{ color: '#fff' }} variant='outlined' onClick={handlePrimaryAction} color='secondary'>
+            New Record
+          </Button>
+        </Box>
+        }
       </AppToolbar>
     </AppBar>
   );
