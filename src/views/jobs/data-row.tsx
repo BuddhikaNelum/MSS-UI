@@ -2,6 +2,7 @@ import { Chip, Divider, IconButton, Stack, TableCell, TableRow } from "@mui/mate
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import EditIcon from "@mui/icons-material/Edit";
 import { TJob } from "types/job";
+import { formatDateTime } from "utils/date-util";
 
 interface IProps {
   row: TJob;
@@ -17,7 +18,7 @@ const DataRow = ({ row, onViewDetails }: IProps) => {
       <TableCell>
         <Chip size="small" label={row.jobStatus === 0 ? "Pending" : "Accepted"} color={row.jobStatus === 0 ? "secondary" : "success"} />
       </TableCell>
-      <TableCell scope="row">{row.createdAt}</TableCell>
+      <TableCell scope="row">{formatDateTime(row.createdAt)}</TableCell>
       <TableCell scope="row">{row.completedAt}</TableCell>
 
       <TableCell align="right">

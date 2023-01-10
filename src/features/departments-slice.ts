@@ -23,10 +23,7 @@ export const departmentsSlice = createSlice({
     setReload: (state: IState, action: PayloadAction<boolean>) => {
       state.reload = action.payload;
     },
-    openCreateDrawer: (
-      state: IState,
-      action: PayloadAction<TOrder | undefined>
-    ) => {
+    openCreateDrawer: (state: IState, action: PayloadAction<TOrder | undefined>) => {
       state.isOpenCreateDrawer = true;
     },
     closeCreateDrawer: (state: IState) => {
@@ -38,19 +35,11 @@ export const departmentsSlice = createSlice({
   },
 });
 
-export const {
-  setReload,
-  openCreateDrawer,
-  closeCreateDrawer,
-  toggleDetailsDrawer,
-} = departmentsSlice.actions;
+export const { setReload, openCreateDrawer, closeCreateDrawer, toggleDetailsDrawer } = departmentsSlice.actions;
 
-export const selectShouldReload = (state: RootState) =>
-  state.departments.reload;
-export const selectIsCreateDrawerOpen = (state: RootState) =>
-  state.departments.isOpenCreateDrawer;
-export const selectIsDetailsDrawerOpen = (state: RootState) =>
-  state.departments.isOpenDetailsDrawer;
-  export const selectDepartment = (state: RootState) => state.departments.department;
+export const selectShouldReload = (state: RootState) => state.departments.reload;
+export const selectIsCreateDrawerOpen = (state: RootState) => state.departments.isOpenCreateDrawer;
+export const selectIsDetailsDrawerOpen = (state: RootState) => state.departments.isOpenDetailsDrawer;
+export const selectDepartment = (state: RootState) => state.departments.department;
 
 export default departmentsSlice.reducer;
