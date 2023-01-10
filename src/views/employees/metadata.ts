@@ -4,5 +4,6 @@ type TRoomType = Omit<typeof UserType, "CUSTOMER" | "TRAVEL_AGENCY">
 
 export const employeeTypeOptions: {[key in keyof TRoomType]: string} = {
     MANAGER: "Manager",
-    CLERK: "Clerk"
+    SUPERVISOR: "Supervisor",
+    EMPLOYEE: "Employee"
 }
