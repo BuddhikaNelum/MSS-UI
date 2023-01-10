@@ -4,7 +4,6 @@ import { setCurrScreen } from "features/app-slice";
 import { AppScreen } from "enums/screen";
 import OrderList from "./order-list";
 import OrderDetails from "./order-details";
-import OrderCreate from "./order-create";
 
 const ManageOrders = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +15,6 @@ const ManageOrders = () => {
   return (
     <>
       <OrderList />
-      <OrderCreate />
       <OrderDetails />
     </>
   );
