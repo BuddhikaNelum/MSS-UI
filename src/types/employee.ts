@@ -1,22 +1,34 @@
-import { UserType } from "enums/userType"
+import { UserType } from "enums/userType";
 
 type TEmployeeCreate = {
-  userType: UserType,
-  email: string,
-  name: string,
-  phone: string,
-  password: string
-}
+  userType: UserType;
+  email: string;
+  name: string;
+  phone: string;
+  password: string;
+};
 
-type TEmployee = {
+type TEmployeeSample = {
   _id: string;
   name: string;
   role: string;
   department: string;
   email: string;
-}
+};
 
-export type {
-  TEmployeeCreate,
-  TEmployee
-}
+type TEmployee = {
+  id: number;
+  userType: number;
+  departmentId: number;
+  department: any;
+  createdOn: string;
+  updatedOn: string;
+  userRoles: any;
+  userName: string;
+  normalizedUserName: string;
+  email: string;
+  normalizedEmail: string;
+  phoneNumber: string;
+};
+
+export type { TEmployeeCreate, TEmployee, TEmployeeSample };

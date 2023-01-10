@@ -1,42 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { openCreateDrawer, toggleDetailsDrawer, selectShouldReload } from "features/employees-slice";
+import { openCreateDrawer, toggleDetailsDrawer, selectShouldReload, setReload } from "features/employees-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { TEmployee } from "types/employee";
+import { useLazyGetUsersQuery } from "api/authAPISlice";
 import DataRow from "./data-row";
-
-import { data } from "./mockdata";
 
 const HotelList = () => {
   const dispatch = useAppDispatch();
-  const shouldReload = useAppSelector(selectShouldReload)
+  const shouldReload = useAppSelector(selectShouldReload);
 
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // const [triggerFilterEmployees, { data }] = useLazyFilterEmployeesQuery();
+  const [triggerFilterEmployees, { data }] = useLazyGetUsersQuery();
 
-  // useEffect(() => {
-  //   if (shouldReload) {
-  //     triggerFilterEmployees()
-  //     dispatch(setReload(false))
-  //   }
-  // }, [shouldReload]);
+  useEffect(() => {
+    if (shouldReload) {
+      triggerFilterEmployees();
+      dispatch(setReload(false));
+    }
+  }, [shouldReload]);
 
-  // useEffect(() => {
-  //   triggerFilterEmployees();
-  // }, []);
+  useEffect(() => {
+    triggerFilterEmployees();
+  }, []);
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
+  const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -47,20 +41,23 @@ const HotelList = () => {
   return (
     <Box>
       <Box>
-        <TableContainer >
+        <TableContainer>
           <Table size="small" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
+                <TableCell>Username</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell>Department</TableCell>
                 <TableCell>Role</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
               {data?.map((row) => (
-                <DataRow key={row._id} row={row} onViewDetails={handleViewDetails} onUpdateDetails={handleUpdateDetails} />
+                <DataRow
+                  key={row.id}
+                  row={row}
+                  onViewDetails={handleViewDetails}
+                  onUpdateDetails={handleUpdateDetails}
+                />
               ))}
             </TableBody>
           </Table>
@@ -75,9 +72,8 @@ const HotelList = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
-      
     </Box>
   );
-}
+};
 
 export default HotelList;

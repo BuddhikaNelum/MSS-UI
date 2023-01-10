@@ -2,6 +2,8 @@ import { TableCell, TableRow, Divider, Stack, IconButton } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import EditIcon from '@mui/icons-material/Edit';
 import { TEmployee } from "types/employee";
+import { employeeTypeOptions } from "./metadata";
+import { UserType } from "enums/userType";
 interface IProps {
   row: TEmployee
   onViewDetails: (room: TEmployee) => void;
@@ -12,28 +14,9 @@ const DataRow = ({ row, onViewDetails, onUpdateDetails }: IProps) => {
 
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}    >
-      <TableCell>{row.name}</TableCell>
+      <TableCell>{row.userName}</TableCell>
       <TableCell>{row.email}</TableCell>
-      <TableCell>{row.department}</TableCell>
-      <TableCell>{row.role}</TableCell>
-
-      <TableCell align="right">
-        <Stack
-          direction="row"
-          divider={<Divider orientation="vertical" flexItem />}
-          spacing={1}
-          alignItems='center'
-          justifyContent='end'
-        >
-          <IconButton aria-label="delete" onClick={() => onUpdateDetails(row)}>
-            <EditIcon />
-          </IconButton>
-
-          <IconButton aria-label="delete" onClick={() => onViewDetails(row)}>
-            <ArrowForwardIcon />
-          </IconButton>
-        </Stack>
-      </TableCell>
+      <TableCell>{employeeTypeOptions[UserType[row.userType]]}</TableCell>
     </TableRow>
   );
 }
