@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from "@mui/material";
-import { TDepartmentSample } from "types/department";
+import { TDepartment } from "types/department";
 interface IProps {
-  row: TDepartmentSample;
+  row: TDepartment;
 }
 
 const DataRow = ({ row }: IProps) => {
