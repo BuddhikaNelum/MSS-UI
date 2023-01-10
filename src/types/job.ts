@@ -77,4 +77,12 @@ type TJobRowReport = {
   applicationUser: any;
 };
 
-export type { TJobSample, TJobCreateRequest, TJobListResponse, TJob, TJobAcceptRequest, TJobReportRequest, TJobRowReport };
+export type {
+  TJobSample,
+  TJobCreateRequest,
+  TJobListResponse,
+  TJob,
+  TJobAcceptRequest,
+  TJobReportRequest,
+  TJobRowReport,
+};

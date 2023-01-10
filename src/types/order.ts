@@ -27,4 +27,18 @@ type TOrder = {
   };
 };
 
-export type { TOrder, TOrderSample };
+type TOrdersReportRequest = {
+  start: string;
+  end: string;
+};
+
+type TOrdersReportDataRow = {
+  id: number;
+  orderdAt: string;
+  orderCompletedAt: string;
+  orderCompleted: boolean;
+  jobId: number;
+  job: any;
+};
+
+export type { TOrder, TOrderSample, TOrdersReportRequest, TOrdersReportDataRow };
