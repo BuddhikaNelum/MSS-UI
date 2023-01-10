@@ -57,4 +57,24 @@ type TJobAcceptRequest = {
   jobId: number;
 };
 
-export type { TJobSample, TJobCreateRequest, TJobListResponse, TJob, TJobAcceptRequest };
+type TJobReportRequest = {
+  start: string;
+  end: string;
+};
+
+type TJobRowReport = {
+  id: string;
+  name: string;
+  description: string;
+  departmentId: string;
+  department: any;
+  workMaterials: any;
+  jobStatus: string;
+  createdAt: string;
+  completedAt: string;
+  notes: any;
+  createdBy: string;
+  applicationUser: any;
+};
+
+export type { TJobSample, TJobCreateRequest, TJobListResponse, TJob, TJobAcceptRequest, TJobReportRequest, TJobRowReport };
