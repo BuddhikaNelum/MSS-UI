@@ -1,6 +1,15 @@
-type TDepartment = {
+type TDepartmentSample = {
   _id: string;
   department: string;
 };
 
-export type { TDepartment };
+type TDepartment = {
+  id: 1;
+  name: string;
+};
+
+type TDepartmentCreateRequest = {
+  name: string;
+};
+
+export type { TDepartmentSample, TDepartment, TDepartmentCreateRequest };
