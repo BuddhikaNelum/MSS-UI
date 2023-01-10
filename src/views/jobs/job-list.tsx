@@ -1,5 +1,6 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { useLazyGetJobsQuery } from "api/jobsAPISlice";
+import { useCreateJobReportMutation, useLazyGetJobsQuery } from "api/jobsAPISlice";
+import { setErrorSnackbar } from "features/app-slice";
 import { selectShouldReload, setReload, toggleDetailsDrawer } from "features/jobs-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useEffect, useState } from "react";
@@ -11,10 +12,11 @@ const JobList = () => {
 
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  
+
   const shouldReload = useAppSelector(selectShouldReload);
 
   const [triggerGetJobs, { data }] = useLazyGetJobsQuery();
+  const [triggerGetJobReportData] = useCreateJobReportMutation();
 
   useEffect(() => {
     if (shouldReload) {
@@ -37,6 +39,21 @@ const JobList = () => {
   };
 
   const handleViewDetails = (job: TJob) => dispatch(toggleDetailsDrawer(job));
+
+  const handleGenerateReport = async () => {
+    //TODO: Change dates.
+    triggerGetJobReportData({
+      start: "",
+      end: "",
+    })
+      .unwrap()
+      .then((res) => {
+        //TODO: Generate PDF here.
+      })
+      .catch((_err) => {
+        dispatch(setErrorSnackbar("Generating job report failed"));
+      });
+  };
 
   return (
     <Box display="flex" flexDirection="column">

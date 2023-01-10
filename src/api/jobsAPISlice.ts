@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { TJobCreateRequest, TJobListResponse } from "types/job";
+import { TJobCreateRequest, TJobListResponse, TJobReportRequest, TJobRowReport } from "types/job";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
@@ -13,6 +13,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    createJobReport: builder.mutation<Array<TJobRowReport>, TJobReportRequest>({
+      query: (data) => ({
+        url: "/job/jobreport",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getJobById: builder.query<any, number>({
       query: (jobId) => `/job/${jobId}`,
     }),
@@ -22,4 +29,5 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useCreateJobMutation, useLazyGetJobByIdQuery, useLazyGetJobsQuery } = apiSlice;
+export const { useCreateJobMutation, useLazyGetJobByIdQuery, useLazyGetJobsQuery, useCreateJobReportMutation } =
+  apiSlice;
