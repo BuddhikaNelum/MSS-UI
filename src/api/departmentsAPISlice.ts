@@ -1,29 +1,22 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { TSignInRequest, TSignInResponse, TSignUpRequest } from "types/auth";
+import { TDepartment, TDepartmentCreateRequest } from "types/department";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
-  reducerPath: '/departmentsApi',
+  reducerPath: "/departmentsApi",
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({
-    signUp: builder.mutation<void, TSignUpRequest>({
-      query: (data) => ({
-        url: '/auth',
-        method: 'POST',
-        body: data
-      })
+    getDepartments: builder.query<Array<TDepartment>, void>({
+      query: () => `/department/all`,
     }),
-    signIn: builder.mutation<TSignInResponse, TSignInRequest>({
+    createDepartment: builder.mutation<any, TDepartmentCreateRequest>({
       query: (data) => ({
-        url: '/auth/signin',
-        method: 'POST',
-        body: data
-      })
-    })
+        url: "/department/add",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
-})
+});
 
-export const {
-  useSignUpMutation,
-  useSignInMutation,
-} = apiSlice;
+export const { useLazyGetDepartmentsQuery, useCreateDepartmentMutation } = apiSlice;
