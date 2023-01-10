@@ -1,37 +1,26 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { THotelRoomCreate } from "types/hotelRoom";
+import { TJobAcceptRequest } from "types/job";
+import { TOrder } from "types/order";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
-  reducerPath: '/ordersApi',
+  reducerPath: "/ordersApi",
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({
-    filterRoomsByHotelId: builder.query<Array<any>, number>({
-      query: (hotellId) => `/hotel/rooms/${hotellId}`
+    getOrders: builder.query<Array<TOrder>, void>({
+      query: () => `/order/all`,
     }),
-    getHotelRoomById: builder.query<any, number>({
-      query: (roomlId) => `/hotel/room/${roomlId}`
-    }),
-    createHotelRoom: builder.mutation<any, THotelRoomCreate>({
+    requestFromInventory: builder.mutation<any, TJobAcceptRequest>({
       query: (data) => ({
-        url: '/hotel/addRoom',
-        method: 'POST',
-        body: data
-      })
+        url: "/order/requestfrominventory",
+        method: "POST",
+        body: data,
+      }),
     }),
-    updateHotelRoom: builder.mutation<any, THotelRoomCreate>({
-      query: (data) => ({
-        url: '/hotel/updateRoom',
-        method: 'POST',
-        body: data
-      })
+    getOrderById: builder.query<any, number>({
+      query: (orderId) => `/order/${orderId}`,
     }),
   }),
-})
+});
 
-export const {
-  useLazyFilterRoomsByHotelIdQuery,
-  useLazyGetHotelRoomByIdQuery,
-  useCreateHotelRoomMutation,
-  useUpdateHotelRoomMutation
-} = apiSlice;
+export const { useLazyGetOrdersQuery, useLazyGetOrderByIdQuery, useRequestFromInventoryMutation } = apiSlice;
