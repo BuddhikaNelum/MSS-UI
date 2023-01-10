@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  MenuItem,
   Box,
   Table,
   TableBody,
@@ -9,22 +8,24 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import DataRow from "./data-row";
-import { useLazyGetOrdersQuery } from "api/ordersAPISlice";
+import { useCreateOrdersReportMutation, useLazyGetOrdersQuery } from "api/ordersAPISlice";
 import { openCreateDrawer, toggleDetailsDrawer, setReload, selectShouldReload } from "features/orders-slice";
 import { TOrder } from "types/order";
+import { setErrorSnackbar } from "features/app-slice";
 
 const OrderList = () => {
+  const dispatch = useAppDispatch();
+
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const shouldReload = useAppSelector(selectShouldReload);
 
-  const dispatch = useAppDispatch();
   const [triggerGetOrders, { data }] = useLazyGetOrdersQuery();
+  const [triggerGetOrdersReportData] = useCreateOrdersReportMutation();
 
   useEffect(() => {
     if (shouldReload) {
@@ -44,6 +45,21 @@ const OrderList = () => {
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleGenerateReport = async () => {
+    //TODO: Change dates.
+    triggerGetOrdersReportData({
+      start: "",
+      end: "",
+    })
+      .unwrap()
+      .then((res) => {
+        //TODO: Generate PDF here.
+      })
+      .catch((_err) => {
+        dispatch(setErrorSnackbar("Generating orders report failed"));
+      });
   };
 
   const handleViewDetails = (order: TOrder) => dispatch(toggleDetailsDrawer(order));
