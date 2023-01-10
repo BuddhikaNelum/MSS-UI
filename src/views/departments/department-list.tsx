@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Table,
@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import { selectShouldReload } from "features/inventory-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { useLazyGetDepartmentsQuery } from "api/departmentsAPISlice";
+import { setReload } from "features/departments-slice";
 import DataRow from "./data-row";
-
-import { data } from "./mockdata";
 
 const DepartmentList = () => {
   const [page, setPage] = useState(2);
@@ -22,18 +22,18 @@ const DepartmentList = () => {
   const dispatch = useAppDispatch();
   const shouldReload = useAppSelector(selectShouldReload);
 
-  // const [triggerFilterHotels, { data }] = useLazyFilterHotelsQuery();
+  const [triggerGetDepartments, { data }] = useLazyGetDepartmentsQuery();
 
-  // useEffect(() => {
-  //   if (shouldReload) {
-  //     triggerFilterHotels();
-  //     dispatch(setReload(false));
-  //   }
-  // }, [shouldReload]);
+  useEffect(() => {
+    if (shouldReload) {
+      triggerGetDepartments();
+      dispatch(setReload(false));
+    }
+  }, [shouldReload]);
 
-  // useEffect(() => {
-  //   triggerFilterHotels();
-  // }, []);
+  useEffect(() => {
+    triggerGetDepartments();
+  }, []);
 
   const handleChangePage = (
     _event: React.MouseEvent<HTMLButtonElement> | null,
