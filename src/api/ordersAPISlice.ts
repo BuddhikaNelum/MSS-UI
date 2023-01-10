@@ -12,7 +12,7 @@ export const apiSlice = createApi({
     }),
     createOrdersReport: builder.mutation<Array<TOrdersReportDataRow>, TOrdersReportRequest>({
       query: (data) => ({
-        url: "/job/jobreport",
+        url: "/report/jobreport",
         method: "POST",
         body: data,
       }),

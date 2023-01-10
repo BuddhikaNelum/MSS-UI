@@ -15,7 +15,7 @@ export const apiSlice = createApi({
     }),
     createJobReport: builder.mutation<Array<TJobRowReport>, TJobReportRequest>({
       query: (data) => ({
-        url: "/job/jobreport",
+        url: "/report/jobreport",
         method: "POST",
         body: data,
       }),
