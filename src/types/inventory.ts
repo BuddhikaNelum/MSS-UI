@@ -2,4 +2,15 @@ type TInventory = {
   _id: string;
 };
 
-export type { TInventory };
+type TInventoryItem = {
+  id: number;
+  name: string;
+  quantity: number;
+};
+
+type TInventoryItemCreateRequest = {
+  name: string;
+  quantity: number;
+};
+
+export type { TInventory, TInventoryItemCreateRequest, TInventoryItem };
