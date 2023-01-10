@@ -1,11 +1,11 @@
 import { UserType } from "enums/userType";
 
 type TSignUpRequest = {
-  email: string;
-  name: string;
-  phone: string;
-  businessRegNo: string;
   userType: UserType,
+  email: string;
+  username: string;
+  phoneNumber: string;
+  departmentId: number;
   password: string;
 }
 

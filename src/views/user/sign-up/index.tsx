@@ -1,56 +1,52 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  colors,
-  CssBaseline,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { validatePhoneNumber } from 'helpers/validations';
-import { UserType } from 'enums/userType';
-import { useSignUpMutation } from 'api/authAPISlice';
-import { useAppDispatch } from 'hooks/hooks';
-import { setErrorSnackbar, setSuccessSnackbar } from 'features/app-slice';
-import { useNavigate } from 'react-router-dom';
-import RouteRegistry from 'routes/route-registry';
-import { NavLink } from 'react-router-dom';
+import { Avatar, Box, Button, colors, CssBaseline, Grid, MenuItem, TextField, Typography } from "@mui/material";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { validatePhoneNumber } from "helpers/validations";
+import { useSignUpMutation } from "api/authAPISlice";
+import { useAppDispatch } from "hooks/hooks";
+import { setErrorSnackbar, setSuccessSnackbar } from "features/app-slice";
+import { useNavigate } from "react-router-dom";
+import RouteRegistry from "routes/route-registry";
+import { NavLink } from "react-router-dom";
+import { TSignUpRequest } from "types/auth";
+import { UserType } from "enums/userType";
+import { useEffect } from "react";
+import { useLazyGetDepartmentsQuery } from "api/departmentsAPISlice";
+
+const userRoleOptions: { [key in keyof typeof UserType]: { label: string; value: number } } = {
+  SUPERVISOR: { label: "Supervisor", value: UserType.SUPERVISOR },
+  MANAGER: { label: "Manager", value: UserType.MANAGER },
+  EMPLOYEE: { label: "Employee", value: UserType.EMPLOYEE },
+};
 
 export default function SignUp() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [triggerSignUp] = useSignUpMutation();
+  const [triggerGetDepartments, { data }] = useLazyGetDepartmentsQuery();
+
+  useEffect(() => {
+    triggerGetDepartments();
+  }, []);
 
   const validationSchema = yup.object({
-    email: yup
+    userType: yup.string().required("User type is required"),
+    email: yup.string().email("Enter a valid email").required("Email is required"),
+    phoneNumber: yup
       .string()
-      .email('Enter a valid email')
-      .required('Email is required'),
-    phone: yup
-      .string()
-      .required('Phone is required')
-      .min(10, 'Invalid phone number')
-      .max(10, 'Invalid phone number')
-      .test('phone-no-check', 'Invalid phone number', (phone) => (validatePhoneNumber(phone))),
-    name: yup
-      .string()
-      .required('Enter your first name'),
-    businessRegNo: yup
-      .string()
-      .required('Enter your business registration #'),
-    password: yup
-      .string()
-      .required('Password is required'),
+      .required("Phone is required")
+      .min(10, "Invalid phone number")
+      .max(10, "Invalid phone number")
+      .test("phone-no-check", "Invalid phone number", (phone) => validatePhoneNumber(phone)),
+    username: yup.string().required("Enter your first name"),
+    departmentId: yup.string().required("Department is required"),
+    password: yup.string().required("Password is required"),
     passwordConfirmation: yup
       .string()
-      .required('Password confirmation is required')
-      .test('password-check', 'Password and password confirmation mismatch', (passwordConfirmation) => {
+      .required("Password confirmation is required")
+      .test("password-check", "Password and password confirmation mismatch", (passwordConfirmation) => {
         const { password } = formik.values;
         return password == passwordConfirmation;
       }),
@@ -58,40 +54,41 @@ export default function SignUp() {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      email: '',
-      phone: '',
-      businessRegNo: '',
-      password: '',
-      passwordConfirmation: '',
+      userType: "1",
+      username: "",
+      email: "",
+      phoneNumber: "",
+      departmentId: "1",
+      password: "",
+      passwordConfirmation: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const reqBody = {
+      const reqBody: TSignUpRequest = {
         username: values.username,
         email: values.email,
-        phone: values.phone,
-        businessRegNo: values.businessRegNo,
-        userType: UserType.TRAVEL_AGENCY,
-        password: values.password
-      }
+        phoneNumber: values.phoneNumber,
+        departmentId: parseInt(values.departmentId, 10),
+        userType: parseInt(values.userType, 10),
+        password: values.password,
+      };
 
       handleRegister(reqBody);
-    }
+    },
   });
 
   const handleRegister = async (values: any) => {
     triggerSignUp(values)
       .unwrap()
-      .then(_res => {
-        dispatch(setSuccessSnackbar("You have registered successfully"))
-        navigate(RouteRegistry.user.paths.signIn.path, { replace: true })
+      .then((_res) => {
+        dispatch(setSuccessSnackbar("You have registered successfully"));
+        navigate(RouteRegistry.user.paths.signIn.path, { replace: true });
       })
-      .catch(err => dispatch(setErrorSnackbar(err)));
-  }
+      .catch((err) => dispatch(setErrorSnackbar(err)));
+  };
 
   return (
-    <Box sx={{ width: '458px', margin: 'auto', padding: '1.5rem', backgroundColor: colors.common.white }} boxShadow={2}>
+    <Box sx={{ width: "458px", margin: "auto", padding: "1.5rem", backgroundColor: colors.common.white }} boxShadow={2}>
       <CssBaseline />
       <div>
         <Avatar sx={{ marginX: "auto", marginBottom: "1rem" }}>
@@ -116,17 +113,24 @@ export default function SignUp() {
           />
 
           <TextField
+            select
             variant="outlined"
             margin="normal"
             fullWidth
             id="userType"
             label="User Type"
             name="userType"
-            autoComplete="userType"
+            value={formik.values.userType}
             onChange={formik.handleChange}
-            error={formik.touched.phone && Boolean(formik.errors.phone)}
-            helperText={formik.touched.phone && formik.errors.phone}
-          />
+            error={formik.touched.userType && Boolean(formik.errors.userType)}
+            helperText={formik.touched.userType && formik.errors.userType}
+          >
+            {Object.keys(userRoleOptions).map((key) => (
+              <MenuItem key={userRoleOptions[key].value} value={userRoleOptions[key].value}>
+                {userRoleOptions[key].label}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField
             variant="outlined"
@@ -145,14 +149,34 @@ export default function SignUp() {
             variant="outlined"
             margin="normal"
             fullWidth
-            id="phone"
-            label="Phone"
-            name="phone"
-            autoComplete="phone"
+            id="phoneNumber"
+            label="Phone Number"
+            name="phoneNumber"
+            autoComplete="phoneNumber"
             onChange={formik.handleChange}
-            error={formik.touched.businessRegNo && Boolean(formik.errors.businessRegNo)}
-            helperText={formik.touched.businessRegNo && formik.errors.businessRegNo}
+            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
           />
+
+          <TextField
+            select
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="departmentId"
+            label="Department"
+            name="departmentId"
+            autoComplete="departmentId"
+            onChange={formik.handleChange}
+            error={formik.touched.departmentId && Boolean(formik.errors.departmentId)}
+            helperText={formik.touched.departmentId && formik.errors.departmentId}
+          >
+            {(data || []).map((d) => (
+              <MenuItem key={d.id} value={d.id}>
+                {d.name}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField
             variant="outlined"
@@ -183,29 +207,17 @@ export default function SignUp() {
             helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
           />
 
-          {/* <FormControlLabel
-            control={<Checkbox value="allowExtraEmails" color="primary" />}
-            label="I have read and agreed to the terms and conditions."
-          /> */}
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-          >
+          <Button type="submit" fullWidth variant="contained" color="primary">
             Sign Up
           </Button>
 
-          <Grid container marginTop="1rem" justifyContent='center'>
+          <Grid container marginTop="1rem" justifyContent="center">
             <Grid item>
-              <NavLink to={RouteRegistry.user.paths.signIn.path}>
-                Already have an account? Sign in
-              </NavLink>
+              <NavLink to={RouteRegistry.user.paths.signIn.path}>Already have an account? Sign in</NavLink>
             </Grid>
           </Grid>
         </form>
       </div>
-    </Box >
+    </Box>
   );
 }
