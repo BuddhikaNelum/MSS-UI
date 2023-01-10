@@ -1,6 +1,6 @@
-import { TDepartment } from "types/department";
+import { TDepartmentSample } from "types/department";
 
-export const data: TDepartment[] = [
+export const data: TDepartmentSample[] = [
   {
     _id: "63b420f9f9f0634bcf9ffa0c",
     department: "Research & Development",

@@ -19,14 +19,14 @@ import Logo from "assets/images/logo.jpeg";
 const categories = [
   {
     id: "User Management",
-    roles: [UserType.MANAGER, UserType.CLERK],
+    roles: [UserType.MANAGER],
     children: [
       {
         id: "Employees",
         icon: <PersonIcon />,
         active: true,
         path: RouteRegistry.app.paths.employees.path,
-        roles: [UserType.MANAGER, UserType.CLERK],
+        roles: [UserType.MANAGER],
       },
     ],
   },
