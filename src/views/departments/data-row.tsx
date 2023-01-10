@@ -1,14 +1,14 @@
 import { TableCell, TableRow } from "@mui/material";
-import { TDepartmentSample } from "types/department";
+import { TDepartment } from "types/department";
 interface IProps {
-  row: TDepartmentSample;
+  row: TDepartment;
 }
 
 const DataRow = ({ row }: IProps) => {
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-      <TableCell>{row._id}</TableCell>
-      <TableCell>{row.department}</TableCell>
+      <TableCell>{row.id}</TableCell>
+      <TableCell>{row.name}</TableCell>
     </TableRow>
   );
 };
