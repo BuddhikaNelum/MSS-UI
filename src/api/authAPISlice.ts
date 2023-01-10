@@ -8,14 +8,14 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     signUp: builder.mutation<void, TSignUpRequest>({
       query: (data) => ({
-        url: '/auth',
+        url: '/user/signup',
         method: 'POST',
         body: data
       })
     }),
     signIn: builder.mutation<TSignInResponse, TSignInRequest>({
       query: (data) => ({
-        url: '/auth/signin',
+        url: '/user/login',
         method: 'POST',
         body: data
       })
