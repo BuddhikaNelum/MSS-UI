@@ -13,4 +13,9 @@ type TInventoryItemCreateRequest = {
   quantity: number;
 };
 
-export type { TInventory, TInventoryItemCreateRequest, TInventoryItem };
+type TInventoryReportRequest = {
+  start: string;
+  end: string;
+};
+
+export type { TInventory, TInventoryItemCreateRequest, TInventoryItem, TInventoryReportRequest };

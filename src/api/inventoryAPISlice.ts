@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { TInventoryItemCreateRequest } from "types/inventory";
+import { TInventoryItemCreateRequest, TInventoryReportRequest } from "types/inventory";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
@@ -13,6 +13,13 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
+    createInventoryReport: builder.mutation<Array<any>, TInventoryReportRequest>({
+      query: (data) => ({
+        url: "/report/inventoryreport",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getInventory: builder.query<Array<any>, void>({
       query: () => `/inventory/all`,
     }),
@@ -22,4 +29,9 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useLazyGetInventoryQuery, useLazyGetInventoryItemByIdQuery, useCreateInventoryItemMutation } = apiSlice;
+export const {
+  useLazyGetInventoryQuery,
+  useLazyGetInventoryItemByIdQuery,
+  useCreateInventoryItemMutation,
+  useCreateInventoryReportMutation,
+} = apiSlice;
