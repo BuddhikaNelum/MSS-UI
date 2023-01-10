@@ -4,9 +4,8 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import PersonIcon from '@mui/icons-material/Person';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { selectCurrScreen } from 'features/app-slice';
+import PersonIcon from "@mui/icons-material/Person";
+import { selectCurrScreen } from "features/app-slice";
 import { AppScreen } from "enums/screen";
 import { topBarTitle } from "./metadata";
 import { openCreateDrawer as openCreateInventoryDrawer } from "features/inventory-slice";
@@ -43,7 +42,7 @@ const TopBar = () => {
       default:
         break;
     }
-  }
+  };
 
   const getIcon = () => {
     switch (currScreen) {
@@ -62,10 +61,10 @@ const TopBar = () => {
       default:
         break;
     }
-  }
+  };
 
   const AppToolbar = styled(Toolbar)(() => ({
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   }));
 
   const handlePrimaryAction = () => {
@@ -88,7 +87,9 @@ const TopBar = () => {
       default:
         break;
     }
-  }
+  };
+
+  const isNewRecordBtnEnabled = currScreen !== AppScreen.ORDERS;
 
   return (
     <AppBar position="static">
@@ -100,26 +101,26 @@ const TopBar = () => {
           sx={{
             ml: 1,
             mr: 2,
-            fontFamily: 'monospace',
+            fontFamily: "monospace",
             fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'inherit',
-            textDecoration: 'none',
+            letterSpacing: ".3rem",
+            color: "inherit",
+            textDecoration: "none",
           }}
         >
           {getTitle()}
         </Typography>
 
-        {currScreen === 0 ? <></> : 
-        <Box sx={{ marginLeft: 'auto' }}>
-          <Button sx={{ color: '#fff' }} variant='outlined' onClick={handlePrimaryAction} color='secondary'>
-            New Record
-          </Button>
-        </Box>
-        }
+        {isNewRecordBtnEnabled && (
+          <Box sx={{ marginLeft: "auto" }}>
+            <Button sx={{ color: "#fff" }} variant="outlined" onClick={handlePrimaryAction} color="secondary">
+              New Record
+            </Button>
+          </Box>
+        )}
       </AppToolbar>
     </AppBar>
-  )
-}
+  );
+};
 
 export default TopBar;
