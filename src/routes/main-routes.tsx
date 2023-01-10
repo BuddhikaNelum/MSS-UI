@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import AppLayout from 'layout/app-layout';
 import Loadable from 'components/Loadable';
 import RouteRegistry from './route-registry';
+import { PrivateRoute } from 'components/private-route';
 
 const Inventory = Loadable(lazy(() => import('views/inventory')));
 const Departments = Loadable(lazy(() => import('views/departments')));
@@ -12,7 +13,7 @@ const Jobs = Loadable(lazy(() => import('views/jobs')));
 
 const DashboardRoutes = {
   path: '/app',
-  element: <AppLayout />,
+  element: <PrivateRoute component={<AppLayout />} />,
   children: [
     {
       index: true,

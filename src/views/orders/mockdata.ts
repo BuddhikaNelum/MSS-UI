@@ -1,6 +1,6 @@
-import { TOrder } from "types/order";
+import { TOrderSample } from "types/order";
 
-export const data: TOrder[] = [
+export const data: TOrderSample[] = [
   {
     _id: "63b45b61e8dcabd675b2c323",
     status: "Completed",
