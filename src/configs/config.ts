@@ -1,7 +1,7 @@
 const config = {
   env: "DEVELOPMENT",
   api: {
-    baseUrl: "http://localhost:5000/api",
+    baseUrl: "http://localhost:5268/api",
   },
 };
 
