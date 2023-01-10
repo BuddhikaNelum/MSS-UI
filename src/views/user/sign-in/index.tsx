@@ -93,7 +93,7 @@ const SignIn = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+          
           <Button type="submit" fullWidth variant="contained" color="primary">
             Sign In
           </Button>

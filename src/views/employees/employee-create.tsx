@@ -64,7 +64,6 @@ const EmployeeCreate = () => {
   });
 
   const handleCreateEmployee = async (obj: TEmployeeCreate) => {
-    debugger
     triggerCreateEmployee(obj)
       .unwrap()
       .then(_res => {

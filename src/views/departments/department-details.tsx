@@ -1,12 +1,12 @@
 import { Box, Drawer, Stack, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { selectIsCreateDrawerOpen, closeCreateDrawer, selectDepartment } from "features/departments-slice";
+import { selectIsCreateDrawerOpen, closeCreateDrawer, selectDepartment, selectIsDetailsDrawerOpen } from "features/departments-slice";
 import DrawerHeader from "components/drawer-header";
 
 const DepartmentDetails = () => {
   const dispatch = useAppDispatch();
 
-  const isOpen = useAppSelector(selectIsCreateDrawerOpen);
+  const isOpen = useAppSelector(selectIsDetailsDrawerOpen);
   const hotel = useAppSelector(selectDepartment)
 
   const handleClose = () => dispatch(closeCreateDrawer());

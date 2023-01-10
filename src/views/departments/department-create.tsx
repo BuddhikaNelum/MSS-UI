@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { Box, Drawer, TextField, Button } from "@mui/material";
 import { closeCreateDrawer, selectDepartment, selectIsCreateDrawerOpen, setReload } from "features/departments-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { setErrorSnackbar } from "features/app-slice";
+import { setErrorSnackbar, setSuccessSnackbar } from "features/app-slice";
 import { useCreateDepartmentMutation } from "api/departmentsAPISlice";
 import DrawerHeader from "components/drawer-header";
 import { TDepartmentCreateRequest } from "types/department";
@@ -12,7 +12,6 @@ import { TDepartmentCreateRequest } from "types/department";
 const DepartmentsCreate = () => {
   const dispatch = useAppDispatch();
   const [triggerCreateDepartment, { isLoading: isCreateLoading }] = useCreateDepartmentMutation();
-  const [triggerUpdateDepartment, { isLoading: isUpdateLoading }] = useCreateDepartmentMutation();
 
   const isOpen = useAppSelector(selectIsCreateDrawerOpen);
   const hotel = useAppSelector(selectDepartment);
@@ -25,24 +24,17 @@ const DepartmentsCreate = () => {
 
   const handleClose = () => dispatch(closeCreateDrawer());
 
-  const handleCreateHotel = async (obj: TDepartmentCreateRequest) => {
+  const handleCreateDepartment = async (obj: TDepartmentCreateRequest) => {
     triggerCreateDepartment(obj)
       .unwrap()
       .then((_res) => {
-        handleClose();
+        dispatch(setSuccessSnackbar("Department created successfully"));
         dispatch(setReload(true));
+        handleClose();
       })
-      .catch((err) => dispatch(setErrorSnackbar(err)));
-  };
-
-  const handleUpdateHotel = async (obj: TDepartmentCreateRequest) => {
-    // triggerUpdateHotelRoom(obj)
-    //   .unwrap()
-    //   .then((_res) => {
-    //     handleClose();
-    //     dispatch(setReload(true));
-    //   })
-    //   .catch((err) => dispatch(setErrorSnackbar(err)));
+      .catch((err) => {
+        dispatch(setErrorSnackbar(err));
+      });
   };
 
   const validationSchema = yup.object({
@@ -57,11 +49,10 @@ const DepartmentsCreate = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const obj: TDepartmentCreateRequest = {
-        // id: hotel?.id ?? undefined,
         name: values.name,
       };
 
-      hotel?.id ? handleUpdateHotel(obj) : handleCreateHotel(obj);
+      handleCreateDepartment(obj);
     },
   });
 
@@ -91,7 +82,7 @@ const DepartmentsCreate = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                disabled={isCreateLoading || isUpdateLoading}
+                disabled={isCreateLoading}
                 color="primary"
                 sx={{ margin: "normal" }}
               >
