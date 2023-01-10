@@ -1,6 +1,6 @@
-import { TJob } from "types/job";
+import { TJobSample } from "types/job";
 
-export const data: TJob[] = [
+export const data: TJobSample[] = [
   {
     _id: "63b3eab17e56fa34c273c2b0",
     status: "In Progress",

@@ -1,45 +1,25 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { TBooking, TBookingCheck, TBookingCreate, TPayLater } from "types/reservation";
+import { TJobCreateRequest, TJobListResponse } from "types/job";
 import { baseQueryWithReAuth } from "./interceptorsSlice";
 
 export const apiSlice = createApi({
-  reducerPath: '/jobsApi',
+  reducerPath: "/jobsApi",
   baseQuery: baseQueryWithReAuth,
   endpoints: (builder) => ({
-    checkBooking: builder.mutation<boolean, TBookingCheck>({
+    createJob: builder.mutation<any, TJobCreateRequest>({
       query: (data) => ({
-        url: '/booking/check',
-        method: 'POST',
-        body: data
-      })
+        url: "/job/create",
+        method: "POST",
+        body: data,
+      }),
     }),
-    createBooking: builder.mutation<any, TBookingCreate>({
-      query: (data) => ({
-        url: '/booking/create',
-        method: 'POST',
-        body: data
-      })
+    getJobById: builder.query<any, number>({
+      query: (jobId) => `/job/${jobId}`,
     }),
-    filterReservations: builder.query<Array<TBooking>, void>({
-      query: () => `/booking/getall`
+    getJobs: builder.query<TJobListResponse, void>({
+      query: () => `/job/all`,
     }),
-    verifyPayment: builder.query<any, string>({
-      query: (refId) => `/payment/complete/${refId}`
-    }),
-    payLater: builder.mutation<any, TPayLater>({
-      query: (data) => ({
-        url: '/booking/paylater',
-        method: 'POST',
-        body: data
-      })
-    })
   }),
-})
+});
 
-export const {
-  useCheckBookingMutation,
-  useCreateBookingMutation,
-  useLazyFilterReservationsQuery,
-  useLazyVerifyPaymentQuery,
-  usePayLaterMutation
-} = apiSlice;
+export const { useCreateJobMutation, useLazyGetJobByIdQuery, useLazyGetJobsQuery } = apiSlice;
