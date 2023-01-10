@@ -1,6 +1,6 @@
-import { TEmployee } from "types/employee";
+import { TEmployeeSample } from "types/employee";
 
-export const data: TEmployee[] = [
+export const data: TEmployeeSample[] = [
   {
     _id: "63b42e5d832740f87f4836e7",
     name: "Brock Hanson",

@@ -77,6 +77,10 @@ export default function SignUp() {
     },
   });
 
+  /**
+   * Handles sign up process.
+   * @param values 
+   */
   const handleRegister = async (values: any) => {
     triggerSignUp(values)
       .unwrap()
@@ -106,6 +110,7 @@ export default function SignUp() {
             fullWidth
             id="username"
             label="Username"
+            value={formik.values.username}
             onChange={formik.handleChange}
             error={formik.touched.username && Boolean(formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
@@ -140,6 +145,7 @@ export default function SignUp() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -153,6 +159,7 @@ export default function SignUp() {
             label="Phone Number"
             name="phoneNumber"
             autoComplete="phoneNumber"
+            value={formik.values.phoneNumber}
             onChange={formik.handleChange}
             error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
             helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
@@ -160,13 +167,14 @@ export default function SignUp() {
 
           <TextField
             select
+            fullWidth
             variant="outlined"
             margin="normal"
-            fullWidth
             id="departmentId"
             label="Department"
             name="departmentId"
             autoComplete="departmentId"
+            value={formik.values.departmentId}
             onChange={formik.handleChange}
             error={formik.touched.departmentId && Boolean(formik.errors.departmentId)}
             helperText={formik.touched.departmentId && formik.errors.departmentId}
@@ -186,7 +194,6 @@ export default function SignUp() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

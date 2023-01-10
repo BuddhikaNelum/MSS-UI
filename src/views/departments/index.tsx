@@ -17,7 +17,6 @@ const ManageDepartments = () => {
     <>
       <DepartmentList />
       <DepartmentsCreate />
-      <DepartmentDetails />
     </>
   );
 }
