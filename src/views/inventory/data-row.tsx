@@ -1,44 +1,25 @@
-import { Chip, TableCell, TableRow } from "@mui/material";
-import { BookingStatus } from "enums/bookingStatus";
-import { TBooking } from "types/reservation";
-import { formatDateTime } from "utils/date-util";
+import { Divider, IconButton, Stack, TableCell, TableRow } from "@mui/material";
+import { TInventoryItem } from "types/inventory";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
 interface IProps {
-  row: TBooking;
+  row: TInventoryItem;
   onViewDetails: () => void;
 }
 
-const DataRow = ({ row }: IProps) => {
-
+const DataRow = ({ row, onViewDetails }: IProps) => {
   return (
-    <TableRow
-      key={row.referenceId}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    >
-      <TableCell component="th" scope="row">
-        {`${row.referenceId}`}
-      </TableCell>
-      <TableCell>{row.guestName}</TableCell>
-      <TableCell>{row.roomNo}</TableCell>
-      <TableCell>{formatDateTime(row.checkinDate)}</TableCell>
-      <TableCell>{formatDateTime(row.checkoutDate)}</TableCell>
-
-      <TableCell align="center">
-        {
-          BookingStatus.ACTIVE === row.bookingStatus
-            ? <Chip label="Active" color="success" variant="filled" />
-            : <Chip label="Inactive" color="error" variant="filled" />
-        }
-      </TableCell>
-
-      <TableCell align="center">
-        {
-          BookingStatus.ACTIVE === row.paymentStatus
-            ? <Chip label="Active" color="success" variant="filled" />
-            : <Chip label="Inactive" color="error" variant="filled" />
-        }
+    <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+      <TableCell>{row.id}</TableCell>
+      <TableCell>{row.name}</TableCell>
+      <TableCell align="right">{row.quantity}</TableCell>
+      <TableCell align="right">
+        <IconButton size="small" aria-label="delete" onClick={onViewDetails}>
+          <ArrowForwardIcon />
+        </IconButton>
       </TableCell>
     </TableRow>
   );
-}
+};
 
 export default DataRow;

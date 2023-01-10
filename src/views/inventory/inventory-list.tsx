@@ -1,5 +1,5 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { useLazyFilterReservationsQuery } from "api/jobsAPISlice";
+import { useLazyGetInventoryQuery } from "api/inventoryAPISlice";
 import { selectShouldReload, setReload, toggleDetailsDrawer } from "features/inventory-slice";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import { useEffect, useState } from "react";
@@ -10,32 +10,26 @@ const InventoryList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const dispatch = useAppDispatch();
-  const shouldReload = useAppSelector(selectShouldReload)
+  const shouldReload = useAppSelector(selectShouldReload);
 
-  const [triggerFilterReservations, { data, isLoading }] = useLazyFilterReservationsQuery();
+  const [triggerGetInventory, { data, isLoading }] = useLazyGetInventoryQuery();
 
   useEffect(() => {
     if (shouldReload) {
-      triggerFilterReservations();
-      dispatch(setReload(false))
+      triggerGetInventory();
+      dispatch(setReload(false));
     }
   }, [shouldReload]);
 
   useEffect(() => {
-    triggerFilterReservations();
+    triggerGetInventory();
   }, []);
 
-
-  const handleChangePage = (
-    _event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
+  const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -45,17 +39,14 @@ const InventoryList = () => {
   return (
     <Box>
       <Box>
-        <TableContainer sx={{ maxHeight:"calc(500px - 200px)" }}>
+        <TableContainer sx={{ maxHeight: "calc(500px - 200px)" }}>
           <Table stickyHeader size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Ref. ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Room No.</TableCell>
-                <TableCell>Check In</TableCell>
-                <TableCell>Check Out</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Payment Status</TableCell>
+                <TableCell>ID</TableCell>
+                <TableCell>Item Name</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -77,6 +68,6 @@ const InventoryList = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default InventoryList;
