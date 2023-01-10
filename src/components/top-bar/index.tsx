@@ -4,6 +4,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from "@mui/icons-material/Person";
 import { selectCurrScreen } from "features/app-slice";
 import { AppScreen } from "enums/screen";
