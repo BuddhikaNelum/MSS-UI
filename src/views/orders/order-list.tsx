@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MenuItem,
   Box,
@@ -13,16 +13,9 @@ import {
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import DataRow from "./data-row";
-import { useLazyFilterRoomsByHotelIdQuery } from "api/ordersAPISlice";
-import {
-  openCreateDrawer,
-  toggleDetailsDrawer,
-  setReload,
-  selectShouldReload,
-} from "features/orders-slice";
+import { useLazyGetOrdersQuery } from "api/ordersAPISlice";
+import { openCreateDrawer, toggleDetailsDrawer, setReload, selectShouldReload } from "features/orders-slice";
 import { TOrder } from "types/order";
-
-import { data } from "./mockdata";
 
 const OrderList = () => {
   const [page, setPage] = useState(2);
@@ -31,38 +24,30 @@ const OrderList = () => {
   const shouldReload = useAppSelector(selectShouldReload);
 
   const dispatch = useAppDispatch();
-  // const [triggerFilterHotelRooms, { data }] =
-  //   useLazyFilterRoomsByHotelIdQuery();
+  const [triggerGetOrders, { data }] = useLazyGetOrdersQuery();
 
-  // useEffect(() => {
-  //   if (shouldReload) {
-  //     triggerFilterHotelRooms(hotelId)
-  //     dispatch(setReload(false))
-  //   }
-  // }, [shouldReload]);
+  useEffect(() => {
+    if (shouldReload) {
+      triggerGetOrders();
+      dispatch(setReload(false));
+    }
+  }, [shouldReload]);
 
-  // useEffect(() => {
-  //   triggerFilterHotelRooms(hotelId);
-  // }, [hotelId]);
+  useEffect(() => {
+    triggerGetOrders();
+  }, []);
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleViewDetails = (order: TOrder) =>
-    dispatch(toggleDetailsDrawer(order));
-  const handleUpdateDetails = (order: TOrder) =>
-    dispatch(openCreateDrawer(order));
+  const handleViewDetails = (order: TOrder) => dispatch(toggleDetailsDrawer(order));
+  const handleUpdateDetails = (order: TOrder) => dispatch(openCreateDrawer(order));
 
   return (
     <Box>
@@ -72,7 +57,8 @@ const OrderList = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Job ID</TableCell>
-                <TableCell>State</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Status</TableCell>
                 <TableCell>Order Date</TableCell>
                 <TableCell>Completed Date</TableCell>
                 <TableCell />
@@ -81,7 +67,7 @@ const OrderList = () => {
             <TableBody>
               {data?.map((row) => (
                 <DataRow
-                  key={row._id}
+                  key={row.id}
                   data={row}
                   onViewDetails={handleViewDetails}
                   onUpdateDetails={handleUpdateDetails}
